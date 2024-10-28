@@ -6,7 +6,7 @@ import {capitalize} from "./utils"
 // https://dog.ceo/api/breed/Affenpinscher/images/random = single image
 
 const selectEl = document.querySelector("select");
-const imgE1 = document.querySelector("img");
+const carouselContainer = document.querySelector(".carousel-inner");
 
 // API
 const BASE_URL = `https://dog.ceo/api/`;
@@ -23,17 +23,18 @@ function getDogBreed() {
  .catch((error) => console.log(error));
 }
 
-function getSingleImage(breed) {
-    return fetch(`${BASE_URL}breed/${breed}/images/random`)
+// Gets images on breed
+function getBreedImages(breed) {
+    return fetch(`${BASE_URL}breed/${breed}/images`)
     .then((res) => res.json())
-    .then((data) => (data.message))
+    .then((data) => (data.message.slice(0, 10)))
     .catch((error) => console.log(error));
 }
 
-// getSingleImage("husky");
+// getBreedImages("husky");
 
 // MARK: RENDER
-function renderOptiins() {
+function renderOptions() {
     getDogBreed().then((data) => {
         const fragment = document.createDocumentFragment();
         for(let breed of data){
@@ -47,7 +48,7 @@ function renderOptiins() {
 
 }
 
-renderOptiins();
+
 
 // Promise
 // .then()
@@ -55,9 +56,13 @@ renderOptiins();
 // .then()
 // .catch()
 
+function renderCarousel(breed){
+    getBreedImages(breed).then((data) => console.log(data));
+}
+
 // CHANGE ON USER SELECT
 selectEl.addEventListener("change", (event) => {
-    getSingleImage(event.target.value).then((data) => {
-        imgE1.src = data;
+    renderCarousel(event.target.value);      
     });
-});
+
+renderOptions();    
