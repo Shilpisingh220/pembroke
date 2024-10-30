@@ -52,11 +52,11 @@ function renderOptions() {
 // .catch()
 
 function renderCarousel(breed) {
-  carouselContainerEl.appendChild(Carousel(["loader.gif"]));
+  carouselContainerEl.appendChild(Carousel(["loader.gif"], "Loading..."));
 
-  getBreedImages(breed).then((data) => {
+  getBreedImages(breed).then((images) => {
     carouselContainerEl.innerHTML = "";
-    const carousel = Carousel(data);
+    const carousel = Carousel(images, breed);
     carouselContainerEl.appendChild(carousel);
   });
 }
