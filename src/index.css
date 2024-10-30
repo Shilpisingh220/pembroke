@@ -2,7 +2,7 @@
 
 body {
   font-family: "Figtree", sans-serif;
-  background-color: bisque;
+  background-color: rgba(255, 228, 196, 0.507);
 }
 
 @media screen and (min-width: 768px) {
