@@ -11,22 +11,33 @@ const carouselContainerEl = document.querySelector(".carousel-inner");
 const BASE_URL = `https://dog.ceo/api/`;
 
 // MARK: FETCH
-function getDogBreed() {
-  return fetch(`${BASE_URL}breeds/list/all`)
-    .then((res) => res.json())
-    .then((data) => {
-      // console.log(Object.keys(data.message));
-      return Object.keys(data.message);
-    })
-    .catch((error) => console.log(error));
+async function getDogBreed() {
+  // return fetch(`${BASE_URL}breeds/list/all`)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     // console.log(Object.keys(data.message));
+  //     return Object.keys(data.message);
+  //   })
+  //   .catch((error) => console.log(error));
+
+  try {
+    const res = await fetch(`${BASE_URL}breeds/list/all`);
+    const data = await res.json();
+    return Object.keys(data.message);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Gets images on breed
-function getBreedImages(breed) {
-  return fetch(`${BASE_URL}breed/${breed}/images`)
-    .then((res) => res.json())
-    .then((data) => data.message.slice(0, 10))
-    .catch((error) => console.log(error));
+async function getBreedImages(breed) {
+  try {
+    const res = await fetch(`${BASE_URL}breed/${breed}/images`);
+    const data = await res.json();
+    return data.message.slice(0, 10);
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 // getBreedImages("husky");
